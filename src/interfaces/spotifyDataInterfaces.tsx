@@ -33,7 +33,7 @@ export interface Album {
     available_markets?: string[];
     external_urls?: ExternalUrls2;
     href?: string;
-    id?: string;
+    id: string;
     images: Image[];
     name: string;
     release_date?: string;

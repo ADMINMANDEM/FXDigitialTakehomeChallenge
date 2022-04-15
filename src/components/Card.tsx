@@ -1,10 +1,11 @@
 import React from "react";
+import { Artist, Image } from "../interfaces/spotifyDataInterfaces";
 
 interface CardProps {
-  image: any; 
-  name: any;
-  home_port: any;
-  roles: any;
+  images: Image[]; 
+  name: string;
+  artists: Artist[];
+  id: string;
 }
 
 /**
@@ -16,17 +17,17 @@ interface CardProps {
  * 
  */
 const Card = (props: CardProps) => {
-  const {image, name, home_port, roles} = props;
+  const {images, name, artists, id} = props;
   return (
     <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "15px", color: "#333", border: "solid 1px #333", borderRadius: "5px"}}>
-      <div style={{width: "90%", height: "200px", backgroundImage: `url(${image})`, backgroundSize: "cover", backgroundPosition: "center"}}></div>
+      <div style={{width: "300px", height: "300px", backgroundImage: `url(${images[1].url})`, backgroundSize: "cover", backgroundPosition: "center"}}></div>
       <h1>{name}</h1>
-      <h2>{home_port}</h2>
-      <ul>
-        {roles.map((role: any) => <li key={role}>{role}</li>)}
-      </ul>
+      <h2>{artists[0].name}</h2>
+      {/* <ul>
+        {artists.map((id: any) => <li key={id}>{id}</li>)}
+      </ul> */}
     </div>
   )
 }
 
-export default Card
+export default Card;
