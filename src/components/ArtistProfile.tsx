@@ -1,4 +1,4 @@
-import { Album, Artist } from "../interfaces/spotifyDataInterfaces"
+import { Artist } from "../interfaces/spotifyDataInterfaces"
 
 export const ArtistProfile = (artists: Artist[]) => {
 

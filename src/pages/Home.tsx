@@ -8,6 +8,14 @@ import { getSpotifyToken } from '../logic/getSpotifyData'; // To be replaced wit
 export const Home = () => {
 
   const [albums, setAlbums] = useState<Album[]>([]);
+  const [filteredAlbums, setFilteredAlbums] = useState<Album[]>([]);
+
+  function updateSearch(value: string) {
+    if(value === "") {
+      setFilteredAlbums(albums)
+    }
+    setFilteredAlbums(Object.values(albums).filter(album => album.name.toLowerCase().includes(value.toLowerCase())))
+  }
 
   const getTopAlbums = async (token: string) => {
     let receivedAlbums: Album[] = [];
@@ -39,19 +47,22 @@ export const Home = () => {
 
 
     setAlbums(receivedAlbums);
+    setFilteredAlbums(receivedAlbums);
 
   }
 useEffect(() => {
   getSpotifyToken().then((token) => {
     getTopAlbums(token);
   });
+  
 }, []);
   return (
     <>
-      <h1>Daft Punk Albums ({albums.length})</h1>
+      <h1>Daft Punk Albums ({filteredAlbums.length})<input placeholder="Enter Album Name" onChange={event => updateSearch(event.target.value)}/></h1>
+ 
       
       <div className="App" style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", rowGap: "10px", columnGap: "20px"}}>
-        {albums.map((album) => (
+        {filteredAlbums.map((album) => (
           <Card images={album.images} name={album.name} artists={album.artists} id={album.id} tracks={album.tracks} key={album.id}/>
         ))}
         
