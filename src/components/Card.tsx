@@ -1,12 +1,7 @@
-import React from "react";
-import { Artist, Image } from "../interfaces/spotifyDataInterfaces";
+import { Link } from "react-router-dom";
+import { Album } from "../interfaces/spotifyDataInterfaces";
+import ArtistProfile from "./ArtistProfile";
 
-interface CardProps {
-  images: Image[]; 
-  name: string;
-  artists: Artist[];
-  id: string;
-}
 
 /**
  * This should be a React component that, at the very least, comprises an image component a title and a description or subheading.
@@ -16,17 +11,17 @@ interface CardProps {
  * @returns 
  * 
  */
-const Card = (props: CardProps) => {
-  const {images, name, artists, id} = props;
+const Card = (props: Album) => {
+  const {images, name, artists, id, tracks} = props;
+
   return (
-    <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "15px", color: "#333", border: "solid 1px #333", borderRadius: "5px"}}>
-      <div style={{width: "300px", height: "300px", backgroundImage: `url(${images[1].url})`, backgroundSize: "cover", backgroundPosition: "center"}}></div>
-      <h1>{name}</h1>
-      <h2>{artists[0].name}</h2>
-      {/* <ul>
-        {artists.map((id: any) => <li key={id}>{id}</li>)}
-      </ul> */}
-    </div>
+    <Link to={"albums/" + id} state={props}>
+      <div style={{ width: "300px",display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "#333", border: "solid 1px #333", borderRadius: "5px"}}>
+        <div style={{width: "300px", height: "300px", backgroundImage: `url(${images[1].url})`, backgroundSize: "cover", backgroundPosition: "center"}}></div>
+        <h1>{name} ({tracks?.length} tracks)</h1>
+        <ArtistProfile { ...artists }/>
+      </div>
+    </Link>
   )
 }
 

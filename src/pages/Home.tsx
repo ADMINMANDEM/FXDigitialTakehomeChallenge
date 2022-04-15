@@ -19,19 +19,27 @@ export const Home = () => {
 
     const response = await fetch("https://api.spotify.com/v1/artists/4tZwfgrHOc3mvqYlEYSvVi/albums?limit=50", { headers: headers });
     
+    // daft punk: 4tZwfgrHOc3mvqYlEYSvVi FG: 0Y4inQK6OespitzD6ijMwb
+
     const itemsFromSpotify = await response.json().then((data) => {
       return data.items;
     });
     
     for(let item of itemsFromSpotify) {
       if(item.type === "album" && item.album_group === "album" && item.available_markets.length > 100) {
+        let tracks = [];
+        const trackResponse = await fetch("https://api.spotify.com/v1/albums/" + item.id + "/tracks?limit=50", { headers: headers });
+        tracks = await trackResponse.json().then((data) => {
+          return data.items
+        })
+        item.tracks = tracks;
         receivedAlbums.push(item);
       };
     };
 
-    console.log(receivedAlbums);
 
     setAlbums(receivedAlbums);
+
   }
 useEffect(() => {
   getSpotifyToken().then((token) => {
@@ -44,7 +52,7 @@ useEffect(() => {
       
       <div className="App" style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", rowGap: "10px", columnGap: "20px"}}>
         {albums.map((album) => (
-          <Card images={album.images} name={album.name} artists={album.artists} id={album.id} key={album.id}/>
+          <Card images={album.images} name={album.name} artists={album.artists} id={album.id} tracks={album.tracks} key={album.id}/>
         ))}
         
 
