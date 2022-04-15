@@ -58,8 +58,7 @@ useEffect(() => {
 }, []);
   return (
     <>
-      <h1>Daft Punk Albums ({filteredAlbums.length})<input placeholder="Enter Album Name" onChange={event => updateSearch(event.target.value)}/></h1>
- 
+      <h1>Daft Punk Albums ({filteredAlbums.length})<input style={{display: 'flex'}} placeholder="Enter Album Name" onChange={event => updateSearch(event.target.value)}/></h1>
       
       <div className="App" style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr", rowGap: "10px", columnGap: "20px"}}>
         {filteredAlbums.map((album) => (

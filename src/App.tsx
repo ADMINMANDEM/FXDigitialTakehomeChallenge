@@ -18,12 +18,8 @@ class App extends Component{
           <main>
             <section>
                 <Routes>
-                  <Route path={"/"} element={<Home />}>
-                    {/* <Route path="albums">
-                      <Route path=":id" element={<AlbumInfo />} />
-                    </Route> */}
+                  <Route path={"/"} element={<Home />} />
 
-                  </Route>
                   <Route path={"/albums/:id"} element={<AlbumInfo />}/>
                 </Routes>
             </section>
